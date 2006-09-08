@@ -1,0 +1,42 @@
+#!/bin/sh
+
+#
+# SVSuite Tool for running the (comparison step) Validation/GlobalHits package
+#
+
+
+
+# Note: Should probably be a better way to look this location up
+#       rather than having to know the name...
+
+#
+# it's easier to copy over all the root-related stuff
+#
+cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/test/*.C . 
+cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/test/.rootrc . 
+cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/data/GlobalValHistograms-reference.root .
+### root -b -q MakeValidation.C &
+root -b -q MakeHistograms.C
+PROCID=$!
+echo $PROCID > process_id
+wait $PROCID
+EXIT_STATUS=$?
+
+echo "Exit status of root is $EXIT_STATUS"
+
+
+
+echo "Output files produced:"
+/bin/ls `pwd`/*.ps
+/bin/ls `pwd`/*.root
+
+echo "Output Dir: $SVSUITE_OUTPUT_DIR"
+/bin/mv -f ./*.ps $SVSUITE_OUTPUT_DIR
+/bin/mv -f ./*.root $SVSUITE_OUTPUT_DIR
+
+echo "Content of Output Dir:"
+/bin/ls $SVSUITE_OUTPUT_DIR
+
+
+
+

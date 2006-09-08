@@ -1,0 +1,38 @@
+#!/bin/sh
+
+#
+# SVSuite Tool for running the Validation/Performance package
+#
+
+
+
+# Note: Should probably be a better way to look this location up
+#       rather than having to know the name...
+LOGFILE=$SVSUITE_INPUT_DIR/cmsRun1-main.sh-stdout.log
+
+grep TimeModule $LOGFILE >& timing_minbias.log
+
+
+root -b -q $SVSUITE_DATA_DIR/SVSuite/Validation/Performance/test/timing.C &
+PROCID=$!
+echo $PROCID > process_id
+wait $PROCID
+EXIT_STATUS=$?
+
+echo "Exit status of root is $EXIT_STATUS"
+
+
+
+echo "Output files produced:"
+/bin/ls `pwd`/*.ps
+
+echo "Output Dir: $SVSUITE_OUTPUT_DIR"
+/bin/mv -f ./*.ps $SVSUITE_OUTPUT_DIR
+/bin/mv -f ./*.root $SVSUITE_OUTPUT_DIR
+
+echo "Content of Output Dir:"
+/bin/ls $SVSUITE_OUTPUT_DIR
+
+
+
+
