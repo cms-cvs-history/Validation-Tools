@@ -15,8 +15,14 @@
 cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/test/*.C . 
 cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/test/.rootrc . 
 cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/data/GlobalValHistograms-reference.root .
+#
+# not yet this...
 ### root -b -q MakeValidation.C &
-root -b -q MakeHistograms.C
+#
+INPUT_FILES=`svSuite-list-input-files`
+echo "INPUT_FILES = $INPUT_FILES"
+root -b -q MakeHistograms.C\($INPUT_FILES,\"$SVSUITE_JOB_ID-GlobalHits\"\) &
+
 PROCID=$!
 echo $PROCID > process_id
 wait $PROCID
