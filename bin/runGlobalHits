@@ -14,7 +14,7 @@
 #
 cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/test/*.C . 
 cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/test/.rootrc . 
-cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/data/GlobalValHistograms-reference.root .
+### cp $SVSUITE_DATA_DIR/SVSuite/Validation/GlobalHits/data/GlobalValHistograms-reference.root .
 #
 # not yet this...
 ### root -b -q MakeValidation.C &
