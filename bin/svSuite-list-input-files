@@ -38,7 +38,7 @@ Usage: svSuite-list-output-files
              --output-module=<Name>
              --job-report=<filename>
 
-  Returns a space seperated list of output files found in the the job report.
+  Returns a comma seperated list of output files found in the the job report.
   The job report is assumed to be $SVSUITE_INPUT_DIR/FrameworkJobReport.xml,
   but can be overridden by the --job-report option.
   To get a list of files written by a single module only, the output module
@@ -90,11 +90,13 @@ except Exception, ex:
     msg += str(ex)
     raise RuntimeError, msg
 
-
 s = ""
-for item in results:
-    s += " %s" % item
-
+if len(results) == 1:
+    s = results[0]
+elif len(results) > 1:
+    s = results[0]
+    for item in results[1:]:
+        s += ",%s" % item
 print s
 sys.exit(0)
 
