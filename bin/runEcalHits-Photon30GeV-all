@@ -16,7 +16,7 @@ cp $SVSUITE_DATA_DIR/SVSuite/Validation/EcalHits/test/*.C .
 #
 INPUT_FILES=`svSuite-list-input-files`
 echo "INPUT_FILES = $INPUT_FILES"
-root -b -p -q Simhit30GeV_all.C\(\"$INPUT_FILES\",\"$SVSUITE_JOB_ID-EcalHits\"\) &
+root -b -p -q Simhit30GeV_all.C\(\"$INPUT_FILES\",\"$SVSUITE_JOB_ID.root\"\) &
 
 PROCID=$!
 echo $PROCID > process_id
@@ -26,11 +26,11 @@ EXIT_STATUS=$?
 echo "Exit status of root is $EXIT_STATUS"
 
 echo "Output files produced:"
-/bin/ls `pwd`/*.ps
+/bin/ls `pwd`/*.eps
 /bin/ls `pwd`/*.root
 
 echo "Output Dir: $SVSUITE_OUTPUT_DIR"
-/bin/mv -f ./*.ps $SVSUITE_OUTPUT_DIR
+/bin/mv -f ./*.eps $SVSUITE_OUTPUT_DIR
 /bin/mv -f ./*.root $SVSUITE_OUTPUT_DIR
 
 echo "Content of Output Dir:"
