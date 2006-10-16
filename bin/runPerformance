@@ -10,10 +10,11 @@
 #       rather than having to know the name...
 LOGFILE=$SVSUITE_INPUT_DIR/cmsRun1-main.sh-stdout.log
 
+cat /proc/cpuinfo | grep "cpu MHz" >& cpu_info.log
 grep TimeModule $LOGFILE >& timing_minbias.log
 
-
-root -b -q $SVSUITE_DATA_DIR/SVSuite/Validation/Performance/test/timing.C &
+cp $SVSUITE_DATA_DIR/SVSuite/Validation/Performance/test/*.C .
+root -b -q timing.C\(\"$SVSUITE_JOB_ID.root\"\) &
 PROCID=$!
 echo $PROCID > process_id
 wait $PROCID
@@ -24,10 +25,11 @@ echo "Exit status of root is $EXIT_STATUS"
 
 
 echo "Output files produced:"
-/bin/ls `pwd`/*.ps
+#/bin/ls `pwd`/*.ps
+/bin/ls `pwd`/*.root
 
 echo "Output Dir: $SVSUITE_OUTPUT_DIR"
-/bin/mv -f ./*.ps $SVSUITE_OUTPUT_DIR
+#/bin/mv -f ./*.ps $SVSUITE_OUTPUT_DIR
 /bin/mv -f ./*.root $SVSUITE_OUTPUT_DIR
 
 echo "Content of Output Dir:"
