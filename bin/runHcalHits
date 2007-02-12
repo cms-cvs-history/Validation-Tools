@@ -1,0 +1,43 @@
+#!/bin/sh
+
+#
+# SVSuite Tool to run the (comparison step) Validation/EcalHits package
+#
+
+
+
+# Note: Should probably be a better way to look this location up
+#       rather than having to know the name...
+
+#
+# it's easier to copy over all the root-related stuff
+#
+cp $SVSUITE_DATA_DIR/SVSuite/Validation/HcalHits/test/*.C . 
+#
+INPUT_FILES=`svSuite-list-input-files`
+echo "INPUT_FILES = $INPUT_FILES"
+
+SIMHITS_MACRO=$1.C
+root -b -q $SIMHITS_MACRO\(\"$INPUT_FILES\",\"$SVSUITE_JOB_ID.root\",2\) &
+
+PROCID=$!
+echo $PROCID > process_id
+wait $PROCID
+EXIT_STATUS=$?
+
+echo "Exit status of root is $EXIT_STATUS"
+
+echo "Output files produced:"
+/bin/ls `pwd`/*.eps
+/bin/ls `pwd`/*.root
+
+echo "Output Dir: $SVSUITE_OUTPUT_DIR"
+/bin/mv -f ./*.eps $SVSUITE_OUTPUT_DIR
+/bin/mv -f ./*.root $SVSUITE_OUTPUT_DIR
+
+echo "Content of Output Dir:"
+/bin/ls $SVSUITE_OUTPUT_DIR
+
+
+
+
