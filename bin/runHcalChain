@@ -1,0 +1,36 @@
+#!/bin/sh
+
+#
+# SVSuite Tool to run post-cmsRun step of 
+# Validation/HcalHits+HcalDigis+HcalRecHits+CaloTowsers packages
+#
+
+# Note: Should probably be a better way to look this location up
+#       rather than having to know the name...
+
+
+echo "Exit status of root is $EXIT_STATUS"
+
+echo "Output files produced:"
+### /bin/ls `pwd`/*.eps
+/bin/ls `pwd`/*.root
+
+echo "Output Dir: $SVSUITE_OUTPUT_DIR"
+### /bin/mv -f ./*.eps $SVSUITE_OUTPUT_DIR
+/bin/mv -f ./*.root $SVSUITE_OUTPUT_DIR
+
+# EcalDigis step
+/bin/mv -f $SVSUITE_INPUT_DIR/HcalDigisValidation$1.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-DigiPlots.root
+
+# EcalRecHits step
+/bin/mv -f $SVSUITE_INPUT_DIR/HcalRecHitsValidation$1.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-RecHitPlots.root
+
+# CaloTowers
+/bin/mv -f $SVSUITE_INPUT_DIR/CaloTowersValidation$1.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-CaloTowersPlots.root
+
+echo "Content of Output Dir:"
+/bin/ls $SVSUITE_OUTPUT_DIR
+
+
+
+
