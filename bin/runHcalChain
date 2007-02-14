@@ -9,16 +9,6 @@
 #       rather than having to know the name...
 
 
-echo "Exit status of root is $EXIT_STATUS"
-
-echo "Output files produced:"
-### /bin/ls `pwd`/*.eps
-/bin/ls `pwd`/*.root
-
-echo "Output Dir: $SVSUITE_OUTPUT_DIR"
-### /bin/mv -f ./*.eps $SVSUITE_OUTPUT_DIR
-/bin/mv -f ./*.root $SVSUITE_OUTPUT_DIR
-
 # EcalDigis step
 /bin/mv -f $SVSUITE_INPUT_DIR/HcalDigisValidation$1.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-DigiPlots.root
 
