@@ -11,8 +11,8 @@
 CMSRUN_FILES=`svSuite-list-input-files`
 echo "CMSRUN_FILES = $CMSRUN_FILES"
 
-# TrackerHits
-/bin/mv -f $SVSUITE_INPUT_DIR/$CMSRUN_FILES $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-SimHits.root
+# TrackerHits (cmsRun output for now... will be plots later)
+/bin/mv -f $CMSRUN_FILES $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-SimHits.root
 
 # TrackerDigis step
 /bin/mv -f $SVSUITE_INPUT_DIR/stripdigihisto.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-SiStripDigiPlots.root
