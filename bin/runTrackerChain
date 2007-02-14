@@ -1,0 +1,31 @@
+#!/bin/sh
+
+#
+# SVSuite Tool to run post-cmsRun step of 
+# Validation/TrackerHits+TrackerDigis+TrackerRecHits packages
+#
+
+# Note: Should probably be a better way to look this location up
+#       rather than having to know the name...
+
+CMSRUN_FILES=`svSuite-list-input-files`
+echo "CMSRUN_FILES = $CMSRUN_FILES"
+
+# TrackerHits
+/bin/mv -f $SVSUITE_INPUT_DIR/$CMSRUN_FILES $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-SimHits.root
+
+# TrackerDigis step
+/bin/mv -f $SVSUITE_INPUT_DIR/stripdigihisto.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-SiStripDigiPlots.root
+/bin/mv -f $SVSUITE_INPUT_DIR/pixeldigihisto.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-PixelDigiPlots.root
+
+# TRackerRecHits step
+/bin/mv -f $SVSUITE_INPUT_DIR/sistriprechitshisto.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-SiStripRecHitPlots.root
+/bin/mv -f $SVSUITE_INPUT_DIR/pixelrechitshisto.root $SVSUITE_OUTPUT_DIR/$SVSUITE_JOB_ID-PixelRecHitPlots.root
+
+
+echo "Content of Output Dir:"
+/bin/ls $SVSUITE_OUTPUT_DIR
+
+
+
+
